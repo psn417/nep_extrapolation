@@ -1,5 +1,9 @@
 import numpy as np
-from active_tools import find_inverse
+
+
+# avoid large value since GPUMD use float
+def find_inverse(m):
+    return np.linalg.pinv(m, rcond=1e-10)
 
 
 def calculate_maxvol(

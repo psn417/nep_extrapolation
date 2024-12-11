@@ -1,10 +1,6 @@
 import numpy as np
 
 
-def find_inverse(m):
-    return np.linalg.pinv(m, rcond=1e-10)
-
-
 def save_asi(asi, filename="active_set.asi"):
     with open(filename, "w") as f:
         for k, v in asi.items():
