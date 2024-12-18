@@ -1,6 +1,5 @@
 __pycache__
 active_set.asi
-active_set.xyz
-train.xyz
 nep.txt
+*.xyz
 *.png

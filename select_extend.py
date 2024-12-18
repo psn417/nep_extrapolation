@@ -3,7 +3,7 @@ from pynep.io import load_nep, dump_nep
 
 nep_file = "nep.txt"
 data1 = load_nep("train.xyz", ftype="exyz")
-data2 = load_nep("extra_data.xyz", ftype="exyz")
+data2 = load_nep("large_gamma.xyz", ftype="exyz")
 
 data = data1 + data2
 

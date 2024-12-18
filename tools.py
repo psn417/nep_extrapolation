@@ -1,8 +1,25 @@
 import numpy as np
 from tqdm import tqdm
 from pynep.calculate import NEP
-from asi_io import save_asi
+from asi_io import save_asi, load_asi
 from maxvol import calculate_maxvol, find_inverse
+
+
+def get_gamma(traj, nep_file, asi_file):
+    calc = NEP(nep_file)
+    active_set_inverse = load_asi(asi_file)
+    for atoms in tqdm(traj):
+        atoms.arrays["gamma"] = np.zeros(len(atoms))
+        calc.calculate(atoms, ["B_projection"])
+        B_projection = calc.results["B_projection"]
+        for e in active_set_inverse.keys():
+            index = [
+                ii for ii in range(len(atoms)) if atoms.get_chemical_symbols()[ii] == e
+            ]
+            g = B_projection[index] @ active_set_inverse[e]
+            g = np.max(np.abs(g), axis=1)
+            atoms.arrays["gamma"][index] = g
+    return traj
 
 
 def get_B_projections(traj, nep_file):

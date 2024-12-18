@@ -36,7 +36,13 @@ pip install cupy-cuda12x
 You need to have a NEP.
 
 ### 2. Selecting an *Active Set*
-An active set invsersion (`.asi` file) is needed when calculating the extrapolation grade. The active set can also be considered as the environments with the maximum diversity. You can use `select_active.py` to get an active set (`.asi` file) inversion by `MaxVol` and corresponding structures (`.xyz` file).
+An active set invsersion (`.asi` file) is needed when calculating the extrapolation grade. The active set can also be considered as the environments with the maximum diversity. You can use `select_active.py` to get an active set inversion (`.asi` file) by `MaxVol` and corresponding structures (`.xyz` file).
 
-### 3. Extending your training set
+### 3. Selecting structures with large gamma
+If you want to select some structures to add to the training set, you can calculate their extrapolation grade (`gamma`) and judge if their are outside the training set.
+This can be performed by the `compute_extrapolatione` command in `GPUMD` or by `select_gamma.py`. You may modify the gamma cutoff to control how far they are from the training set. The default value in `select_gamma.py` is `1`.
+
+However, the selected structures can be dupelicated, so you need to perform the next step.
+
+### 4. Extending your training set
 If you want to select some structures to add to the training set, your can put them together and perform a `MaxVol` selection. This is in `select_extend.py`.
