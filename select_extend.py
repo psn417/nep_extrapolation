@@ -1,9 +1,10 @@
-from tools import get_B_projections, get_active_set
+from ase.io import write
 from pynep.io import load_nep, dump_nep
+from tools import get_B_projections, get_active_set
 
 nep_file = "nep.txt"
-data1 = load_nep("train.xyz", ftype="exyz")
-data2 = load_nep("large_gamma.xyz", ftype="exyz")
+data1 = load_nep("train.xyz")
+data2 = load_nep("large_gamma.xyz")
 
 data = data1 + data2
 
@@ -13,4 +14,8 @@ active_set_inv, active_set_struct = get_active_set(
 )
 
 out = [data[i] for i in active_set_struct if i >= len(data1)]
-dump_nep("add.xyz", out, ftype="exyz")
+
+try:
+    dump_nep("to_add.xyz", out)
+except:
+    write("to_add.xyz", out)
