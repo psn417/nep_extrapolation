@@ -1,10 +1,13 @@
-from ase.io import write
+from ase.io import write, read
 from pynep.io import load_nep, dump_nep
 from tools import get_B_projections, get_active_set
 
 nep_file = "nep.txt"
 data1 = load_nep("train.xyz")
-data2 = load_nep("large_gamma.xyz")
+try:
+    data2 = load_nep("large_gamma.xyz")
+except:
+    data2 = read("large_gamma.xyz", index=":")
 
 data = data1 + data2
 
